@@ -18,7 +18,7 @@ import numpy as np
 from numpy import genfromtxt
 from pathlib import Path
 
-APIkey = "" # Api key removed from Git version
+APIkey = "" # API Key removed from Git Version
 DomainURL = 'https://api.companieshouse.gov.uk/company/'
 QueryTypeURL = '/registered-office-address' # to be changed if you want to make a different type of call
 SearchQueries = Path("T:/BEN/Audit/search.csv") # import file path
@@ -36,7 +36,8 @@ for x in np.nditer(data):
     if r.status_code != 200: # This means something went wrong.
         print('The following API error code was receieved:')
         print(r.status_code) # Prints error code
-        pass
+        print('failed to retrieve search for company #'+str(x))
+        break
     extract_dict = r.json() # load JSON into Py Dictionary
     TempAddress = str(x),extract_dict.get('address_line_1',''),extract_dict.get('address_line_2',''),extract_dict.get('locality',''),extract_dict.get('postal_code','') # extract keys into temp address object
     address = np.vstack([address,TempAddress])	# append latest api call to current array (vertical append, makes new row)
@@ -48,5 +49,6 @@ for x in np.nditer(data):
 
 np.savetxt(SearchResults,address,fmt='%s',delimiter=",") # save file to csv
 
-print('Congratulations! Companies House search complete, number of records returned: '+str(z))
+if z < 590:
+    print('Congratulations! Companies House search complete, number of records returned: '+str(z))
 
