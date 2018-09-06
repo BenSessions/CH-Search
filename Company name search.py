@@ -18,7 +18,7 @@ import numpy as np
 from numpy import genfromtxt
 from pathlib import Path
 
-APIkey = "" #API Key removed for Git version
+APIkey = "" # Api key removed from Git version
 DomainURL = 'https://api.companieshouse.gov.uk/company/'
 QueryTypeURL = '/registered-office-address' # to be changed if you want to make a different type of call
 SearchQueries = Path("T:/BEN/Audit/search.csv") # import file path
@@ -42,8 +42,8 @@ for x in np.nditer(data):
     address = np.vstack([address,TempAddress])	# append latest api call to current array (vertical append, makes new row)
     z = z+1 # adding to rate limit counter after each loop
     if z == 590: # API rate limit is 600, ending loop early to avoid losing API account
-        print ('WARNING Rate limit reached. Please wait 5 minutes') #Last record returned: '+x+'. Number of rows processed = '+z)  commented out, fancyness not necessary and giving syntax error
-        np.savetxt(SearchResults,address,fmt='%s',delimiter=",") # saves and exits
+        print ('WARNING Rate limit reached. Please wait 5 minutes. Last record returned:'+str(x)+' Number of rows processed = '+str(z))
+        # np.savetxt(SearchResults,address,fmt='%s',delimiter=",") # saves and exits
         break
 
 np.savetxt(SearchResults,address,fmt='%s',delimiter=",") # save file to csv
