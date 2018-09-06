@@ -40,5 +40,5 @@ for x in np.nditer(data):
 
 np.savetxt(SearchResults,address,fmt='%s',delimiter=",") # save file to csv
 
-# print('Congratulations! Companies House search complete, number of records returned: '+z)
-# commented out for ease of test
+print('Congratulations! Companies House search complete, number of records returned: '+str(z))
+# print should now work
